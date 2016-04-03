@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="List&lt;T&gt;" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collection" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="abc&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="test&lt;Y&lt;T&gt;&gt;" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="testSFINAE&lt;T&gt;" Collapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="referenceType&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="constreferenceType&lt;T&gt;" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NullType" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GenScatterHierarchy&lt;Typelist_2(T1, T2), Unit&gt;">
+    <Position X="0.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GenScatterHierarchy&lt;AtomicType, Unit&lt;&gt;&gt;">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GenScatterHierarchy&lt;NullType, Unit&gt;" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="EmptyType" Collapsed="true">
+    <Position X="10" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TypeList&lt;T, U&gt;" Collapsed="true">
+    <Position X="4.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Length&lt;TList&gt;" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Length&lt;NullType&gt;" Collapsed="true">
+    <Position X="4.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Length&lt;TypeList&lt;T, U&gt;&gt;" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TypeAt&lt;TypeList&lt;Head, Tail&gt;, 0&gt;" Collapsed="true">
+    <Position X="3" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TypeAt&lt;TypeList&lt;Head, Tail&gt;, i&gt;" Collapsed="true">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IndexOf&lt;TList, T&gt;" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IndexOf&lt;TypeList&lt;T, Tail&gt;, T&gt;" Collapsed="true">
+    <Position X="8.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IndexOf&lt;TypeList&lt;Head, Tail&gt;, T&gt;" Collapsed="true">
+    <Position X="6.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="AppendList&lt;NullType, NullType&gt;" Collapsed="true">
+    <Position X="8.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="AppendList&lt;NullType, T&gt;" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="AppendList&lt;NullType, TypeList&lt;Head, Tail&gt;&gt;" Collapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="AppendList&lt;TypeList&lt;Head, Tail&gt;, T&gt;" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseType&lt;T, U&gt;" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseType&lt;NullType, T&gt;" Collapsed="true">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseType&lt;TypeList&lt;T, Tail&gt;, T&gt;" Collapsed="true">
+    <Position X="11.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseType&lt;TypeList&lt;Head, Tail&gt;, T&gt;" Collapsed="true">
+    <Position X="10" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseAllType&lt;T, U&gt;" Collapsed="true">
+    <Position X="6.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseAllType&lt;NullType, T&gt;" Collapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseAllType&lt;TypeList&lt;T, Tail&gt;, T&gt;" Collapsed="true">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EraseAllType&lt;TypeList&lt;Head, Tail&gt;, T&gt;" Collapsed="true">
+    <Position X="11.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="NoSameType&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="NoSameType&lt;NullType&gt;" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="NoSameType&lt;TypeList&lt;Head, Tail&gt;&gt;" Collapsed="true">
+    <Position X="6.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Holder&lt;T&gt;" Collapsed="true">
+    <Position X="4.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="MyINfo" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>templateStudyTest.cpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
