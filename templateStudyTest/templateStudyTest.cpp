@@ -500,6 +500,7 @@ struct MemControlBlock
 	std::size_t size_:31;
 	bool available:1;
 };
+
 int main()
 {
 // 	std::cout << 123 << std::endl;
@@ -512,11 +513,11 @@ int main()
 // 	testSFINAE<int> testaa;
 // 	testsfi(testaa);
 // 	testsfi(33432432);
-	int ttttttttt = sizeof(testaaa);
-	testaaa * p = new testaaa;
-	delete p;
-	p = new(p) testaaa[5];
-	delete[] p;
+// 	int ttttttttt = sizeof(testaaa);
+// 	testaaa * p = new testaaa;
+// 	delete p;
+// 	p = new(p) testaaa[5];
+// 	delete[] p;
 	cout << sizeof(MemControlBlock) << endl;
 	std::tuple<int,int>;
 	MyINfo temp;
