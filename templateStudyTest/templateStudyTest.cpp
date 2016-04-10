@@ -156,10 +156,15 @@ struct TypeList
 	typedef T Head;
 	typedef U Tail;
 };
+#define expend(x) x
 #define Typelist_1(a) TypeList<a,NullType>
-#define Typelist_2(a,b) TypeList<a,TypeList<b,NullType>>
-#define Typelist_3(a,b,c) TypeList<a,TypeList<b,TypeList<c,NullType>>>
-#define Typelist_4(a,b,c,d) TypeList<a,TypeList<b,TypeList<c,TypeList<d,NullType>>>>
+#define Typelist_2(a,b) TypeList<a,Typelist_1(b)>
+#define Typelist_3(a,b,c) TypeList<a,Typelist_2(b,c)>
+#define Typelist_4(a,b,c,d) TypeList<a,Typelist_3(b,c,d)>
+#define Typelist_5(a,b,c,d,e) TypeList<a,Typelist_4(b,c,d,e)>
+// #define Typelist_2(a,b) TypeList<a,TypeList<b,NullType>>
+// #define Typelist_3(a,b,c) TypeList<a,TypeList<b,TypeList<c,NullType>>>
+// #define Typelist_4(a,b,c,d) TypeList<a,TypeList<b,TypeList<c,TypeList<d,NullType>>>>
 
 template<class TList> struct Length {};
 template<>struct Length<NullType>
@@ -406,10 +411,15 @@ void Chunk::Deallocate(void * p, std::size_t blockSize)
 	assert(fristAvailableBlock_==((toRelease-pData_)/blockSize));
 	++blocksAvailable_;
 }
+#include <queue>
 class FixedAllocator
 {
 public:
 	void* Allocate();
+	FixedAllocator(std::size_t blockSize,
+	unsigned char numBlocks) :blockSize_(blockSize),numBlocks_(numBlocks)
+	{}
+	void Deallocate(void * p);
 private:
 	std::size_t blockSize_;
 	unsigned char numBlocks_;
@@ -417,9 +427,20 @@ private:
 	Chunks chunks_;
 	Chunk* allocChunt_;
 	Chunk* deallocChunk_;
+	std::queue<void *> deallocQue;
 };
+void FixedAllocator::Deallocate(void * p)
+{
+	deallocQue.push(p);
+}
 void * FixedAllocator::Allocate()
 {
+	if (!deallocQue.empty())
+	{
+		void * temp =  deallocQue.front();
+		deallocQue.pop();
+		return temp;
+	}
 	if (allocChunt_ == 0 || allocChunt_->blocksAvailable_ == 0)
 	{
 		Chunks::iterator i = chunks_.begin();
@@ -446,6 +467,9 @@ void * FixedAllocator::Allocate()
 	return allocChunt_->Allocate(blockSize_);
 }
 class SmallObjectAllocator {
+	SmallObjectAllocator(std::size_t chunkSize, std::size_t max_objectSize);
+	void * Allocate(std::size_t numBytes);
+	void Deallocate(void * p, std::size_t size);
 private:
 	FixedAllocator * pLastAlloc;
 	FixedAllocator * pLastDealloc;
@@ -484,25 +508,77 @@ public:
 	}
 	virtual ~testaaa() {};
 };
+//#define MACRO_ARGS(...)     __VA_ARGS__
+#define EXPAND(...) __VA_ARGS__
+#define MACRO_ARGS_FILTER(_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,_N, ...) _N
+//#define MACRO_ARGS_CONTER(...)  MACRO_ARGS_FILTER(__VA_ARGS__, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+
+#define MACRO_ARGS_(e)        e
+#define MACRO_ARGS_CONTER(...)  MACRO_ARGS_(MACRO_ARGS_FILTER(0, ##__VA_ARGS__, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0))
+
+#define MACRO_CAT(x, y)     x##y
+
+#define MACRO_GLUE( y)    MACRO_CAT(Typelist_,y)
+#define MACRO_add(x,y)    MACRO_CAT(x,y)
+#define type_all(...)    MACRO_ARGS_(MACRO_GLUE(MACRO_ARGS_CONTER(__VA_ARGS__))(__VA_ARGS__))
+
+#define becomestr(x) #x
+#define line2str(x,y) becomestr(x##1)
+#define isempty(...) \
+if(line2str(__VA_ARGS__,1)=="1")\
+  cout<<"True"<<endl;\
+else\
+ cout << "false"<<endl;
 namespace MyFunctional
 {
-	template<class ResultType>
-	class Functor {
-	public:
-		ResultType operator()() {};
-	};
+// 	template<class ResultType>
+// 	class Functor {
+// 	public:
+// 		ResultType operator()() {};
+// 	};
+// 	template <typename R>
+// 	class FunctionImpl<R, NullType>
+// 	{
+// 	public:
+// 		virtual R operator ()() = 0;
+// 		virtual FunctionImpl* clone() const = 0;
+// 		virtual ~FunctionImpl()(){}
+// 	};
+// 	template <typename R, typename P1>
+// 	class FunctionImpl<R, Typelist_1(P1)>
+// 	{
+// 		virtual R operator ()(P1) = 0;
+// 		virtual FunctionImpl* clone() const = 0;
+// 		virtual ~FunctionImpl()(){}
+// 	};
+// 	template <typename R, typename P1,typename P2>
+// 	class FunctionImpl<R, Typelist_2(P1,P2)>
+// 	{
+// 		virtual R operator ()(P1,P2) = 0;
+// 		virtual FunctionImpl* clone() const = 0;
+// 		virtual ~FunctionImpl()(){}
+// 	};
+// 	template <typename R , typename TList>
+// 	class Functor {
+// 	public:
+// 		Functor();
+// 		Functor(const Functor&);
+// 		Functor& operator=(const Functor &);
+// 		explicit Functor(std::auto_ptr<Impl> spImpl);
+// 	private: 
+// 		typedef FunctionImpl<R, TList> Impl;
+// 		std::auto_ptr<Impl> spImpl_;
+// 	};
 }
-
-
-
 struct MemControlBlock
 {
 	std::size_t size_:31;
 	bool available:1;
 };
-
 int main()
 {
+	//printf();
+	int ParamCount = MACRO_ARGS_CONTER(int,double,char);
 // 	std::cout << 123 << std::endl;
 // 	int ret = fff<100>();
 // 	//oo<100> j;
@@ -518,6 +594,8 @@ int main()
 // 	delete p;
 // 	p = new(p) testaaa[5];
 // 	delete[] p;
+	isempty(int, char);
+	isempty();
 	cout << sizeof(MemControlBlock) << endl;
 	std::tuple<int,int>;
 	MyINfo temp;
@@ -529,17 +607,17 @@ int main()
 	std::cout << referenceType<int>::isreference << std::endl;
 	std::cout << referenceType<int&>::isreference << std::endl;
 	std::cout << referenceType<const int&>::isreference << std::endl;
-
-
+	
+	std::cout << "typename==="<<typeid(Typelist_4(int,int, double, char)).name()<<std::endl;
 	static_cast<int>('5');
 	std::cout << constreferenceType<int>::isconstreference << std::endl;
 	std::cout << constreferenceType<int&>::isconstreference << std::endl;
 	std::cout << constreferenceType<const int&>::isconstreference << std::endl;
-	std::cout << Length<Typelist_4(int, double, char, long)>::value << std::endl;
-	std::cout << typeid(TypeAt<Typelist_4(int, double, char, long), 3>::Result).name() << std::endl;
-	std::cout << IndexOf<Typelist_4(int, double, char, long), int>::value << std::endl;
-	std::cout << typeid(AppendList<Typelist_4(int, double, char, long), int>::Result).name() << std::endl;
-	std::cout << typeid(EraseType<Typelist_4(int, double, char, long), float>::Result).name() << std::endl;
-	std::cout << typeid(NoSameType<Typelist_4(int, double, int,double)>::Result).name() << std::endl;
+	std::cout << Length<type_all(int, double, char, long)>::value << std::endl;
+	std::cout << typeid(TypeAt<type_all(int, double, char, long), 3>::Result).name() << std::endl;
+	std::cout << IndexOf<type_all(int, double, char, long), int>::value << std::endl;
+	std::cout << typeid(AppendList<type_all(int, double, char, long), int>::Result).name() << std::endl;
+	std::cout << typeid(EraseType<type_all(int, double, char, long), float>::Result).name() << std::endl;
+	std::cout << typeid(NoSameType<type_all(int, double, int,double)>::Result).name() << std::endl;
     return 0;
 }
