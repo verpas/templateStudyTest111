@@ -184,7 +184,16 @@ struct TypeAt<TypeList<Head, Tail>, 0>
 {
 	typedef Head Result;
 };
-
+template<class Head>
+struct TypeAt<TypeList<Head, NullType>, 0>
+{
+	typedef Head Result;
+};
+template<class Head,  unsigned int i>
+struct TypeAt<TypeList<Head, NullType>, i>
+{
+	typedef typename NullType Result;
+};
 template<class Head, class Tail,unsigned int i>
 struct TypeAt<TypeList<Head, Tail>, i>
 {
@@ -536,39 +545,191 @@ namespace MyFunctional
 // 	public:
 // 		ResultType operator()() {};
 // 	};
-// 	template <typename R>
-// 	class FunctionImpl<R, NullType>
+#define num(x)  typedef typename TypeAt<TList, x-1>::Result MACRO_add(Param,x);
+#define operatorFun(...) MACRO_ARGS_((*spImpl_)(__VA_ARGS__));
+	template <typename T1,typename T2>
+	class FunctionImpl{};
+	template <typename R>
+	class FunctionImpl<R, NullType>
+	{
+	public:
+		virtual R operator ()() = 0;
+		virtual FunctionImpl* clone() const = 0;
+		virtual ~FunctionImpl(){}
+	};
+	template <typename R, typename P1>
+	class FunctionImpl<R, Typelist_1(P1)>
+	{
+	public:
+		virtual R operator ()(P1) = 0;
+		virtual FunctionImpl* clone() const = 0;
+		virtual ~FunctionImpl(){}
+	};
+	template <typename R, typename P1,typename P2>
+	class FunctionImpl<R, Typelist_2(P1,P2)>
+	{
+	public:
+		virtual R operator ()(P1,P2) = 0;
+		virtual FunctionImpl* clone() const = 0;
+		virtual ~FunctionImpl(){}
+	};
+	template<class ParentFunctor,typename Fun>
+	class FunctorHandler :
+		public FunctionImpl<typename ParentFunctor::ResultType, typename ParentFunctor::ParamList>
+	{
+		Fun fun_;
+	public:
+		typedef typename ParentFunctor::ResultType ResultType;
+		FunctorHandler(const Fun& fun):fun_(fun){}
+		ResultType operator()() {
+			return fun_();
+		}
+		ResultType operator()(typename ParentFunctor::Param1 p1) {
+			return fun_(p1);
+		}
+		ResultType operator()(typename ParentFunctor::Param1 p1, typename ParentFunctor::Param2 p2) {
+			return fun_(p1,p2);
+		}
+		FunctorHandler * clone() const { return new FunctorHandler(*this); }
+	};
+	template<class ParentFunctor,typename Obj , typename PointerToMemFn>
+	class MemFunHandler
+		:public FunctionImpl<typename ParentFunctor::ResultType, typename ParentFunctor::ParamList>
+	{
+		Obj * pObj_;
+		PointerToMemFn pMemFn_;
+	public:
+		typedef typename ParentFunctor::ResultType ResultType;
+		MemFunHandler(Obj*  pObj, const PointerToMemFn & pMemFn)
+			:pObj_(pObj),pMemFn_(pMemFn)
+		{
+
+		}
+		MemFunHandler * clone() const { return new MemFunHandler(*this); }
+		ResultType operator()() {
+			return ((*pObj_).*pMemFn_)();
+		}
+		ResultType operator()(typename ParentFunctor::Param1 p1) {
+			return ((*pObj_).*pMemFn_)(p1);
+		}
+		ResultType operator()(typename ParentFunctor::Param1 p1, typename ParentFunctor::Param2 p2) {
+			return ((*pObj_).*pMemFn_)(p1, p2);
+		}
+
+	};
+	template <typename R , typename TList>
+	class Functor 
+	{
+	
+	private: 
+		typedef  FunctionImpl<R, TList> Impl;
+		
+		
+		std::auto_ptr<Impl> spImpl_;
+	public:
+		Functor();
+		Functor(const Functor&);
+		Functor& operator=(const Functor &);
+		explicit Functor(std::auto_ptr<Impl> spImpl);
+		typedef TList ParamList;
+		typedef R ResultType;
+		typedef typename TypeAt<TList, 0>::Result Param1;
+		num(2); num(3); num(4); num(6); num(5); num(7); num(8);
+		R operator ()() {
+			return operatorFun();
+		}
+		R operator ()(Param1 p1) {
+			return operatorFun(p1);
+		}
+		R operator ()(Param1 p1,Param2 p2) {
+			return operatorFun(p1,p2);
+		}
+		template<class Fun>
+		Functor(const Fun& fun) :spImpl_(new FunctorHandler<Functor, Fun>(fun)) 
+		{
+
+		};
+		template<typename member,typename Fun>
+		Functor(member * mem,const Fun& fun) :spImpl_(new MemFunHandler<Functor, member , Fun>(mem,fun))
+		{
+
+		};
+	};
+	template <typename R>
+	class Functor<R,NullType>
+	{
+
+	private:
+		typedef  FunctionImpl<R,NullType > Impl;
+
+
+		std::auto_ptr<Impl> spImpl_;
+	public:
+		Functor();
+		Functor(const Functor&);
+		Functor& operator=(const Functor &);
+		explicit Functor(std::auto_ptr<Impl> spImpl);
+		typedef NullType ParamList;
+		typedef R ResultType;
+		typedef typename NullType Param1;
+		typedef typename NullType Param2;
+		R operator ()() {
+			return operatorFun();
+		}
+		template<class Fun>
+		Functor(const Fun& fun) :spImpl_(new FunctorHandler<Functor, Fun>(fun))
+		{
+
+		};
+		template<typename member, typename Fun>
+		Functor(member * mem, const Fun& fun) :spImpl_(new MemFunHandler<Functor, member, Fun>(mem, fun))
+		{
+
+		};
+	};
+// 	template<class Incoming>
+// 	class BinderFirst :
+// 		public FunctionImpl<typename Incoming::ResultType, typename Incoming::ParamList::Tail >
 // 	{
+// 		typedef Functor<typename Incoming::ResultType, Incoming::ParamList::Tail> Outgoing;
+// 		typedef typename Incoming::Param1 Bound;
+// 		typedef typename Imcoming::ResultType ResultType;
 // 	public:
-// 		virtual R operator ()() = 0;
-// 		virtual FunctionImpl* clone() const = 0;
-// 		virtual ~FunctionImpl()(){}
+// 		BinderFirst(const Incoming & fun, Bound bound) :fun_(fun), bound_(bound) {}
+// 		BinderFirst * clone()const { return new BinderFirst(*this); }
+// 		ResultType operator()()
+// 		{
+// 			return fun_(bound_);
+// 		}
+// 		ResultType operator()(typename Outgoing::Param1 p1)
+// 		{
+// 			return fun_(bound_,p1);
+// 		}
+// 	private:
+// 		Incoming fun_;
+// 		Bound bound_;
 // 	};
-// 	template <typename R, typename P1>
-// 	class FunctionImpl<R, Typelist_1(P1)>
-// 	{
-// 		virtual R operator ()(P1) = 0;
-// 		virtual FunctionImpl* clone() const = 0;
-// 		virtual ~FunctionImpl()(){}
-// 	};
-// 	template <typename R, typename P1,typename P2>
-// 	class FunctionImpl<R, Typelist_2(P1,P2)>
-// 	{
-// 		virtual R operator ()(P1,P2) = 0;
-// 		virtual FunctionImpl* clone() const = 0;
-// 		virtual ~FunctionImpl()(){}
-// 	};
-// 	template <typename R , typename TList>
-// 	class Functor {
-// 	public:
-// 		Functor();
-// 		Functor(const Functor&);
-// 		Functor& operator=(const Functor &);
-// 		explicit Functor(std::auto_ptr<Impl> spImpl);
-// 	private: 
-// 		typedef FunctionImpl<R, TList> Impl;
-// 		std::auto_ptr<Impl> spImpl_;
-// 	};
+// 	template<class Functor>
+// 	typename private::BinderFirstTraits<Functor>::BoundFunctorType
+// 		BindFirst()
+};
+struct  TestFunctor
+{
+	void operator()(int i , double d)
+
+	{
+		cout << "test int  = " << i << "\t double = " << d << endl;
+	}
+};
+class Parrot
+{
+public:
+	void Eat() { cout << "eat" << endl; }
+	void Speak() { cout << "speak" << endl; }
+};
+void testfun(const int& i, double d)
+{
+	cout << "test fun" << "\t int = " << i << "\t double = " << d << endl;
 }
 struct MemControlBlock
 {
@@ -578,6 +739,19 @@ struct MemControlBlock
 int main()
 {
 	//printf();
+	TestFunctor f;
+	MyFunctional::Functor <void, Typelist_2(int, double)> cmd(f);
+	cmd(1, 1.1);
+
+	MyFunctional::Functor <void, Typelist_2(const int&, double)> cmd2(&testfun);
+	cmd2(1, 1.1);
+
+
+	Parrot parrot;
+	MyFunctional::Functor<void,NullType> cmd3(&parrot, &Parrot::Eat),
+		cmd4(&parrot, &Parrot::Speak);
+	cmd3();
+	cmd4();
 	int ParamCount = MACRO_ARGS_CONTER(int,double,char);
 // 	std::cout << 123 << std::endl;
 // 	int ret = fff<100>();
@@ -615,6 +789,8 @@ int main()
 	std::cout << constreferenceType<const int&>::isconstreference << std::endl;
 	std::cout << Length<type_all(int, double, char, long)>::value << std::endl;
 	std::cout << typeid(TypeAt<type_all(int, double, char, long), 3>::Result).name() << std::endl;
+	std::cout << typeid(TypeAt<type_all(int, double, char, long), 4>::Result).name() << std::endl;
+	std::cout << typeid(TypeAt<type_all(int, double, char, long), 5>::Result).name() << std::endl;
 	std::cout << IndexOf<type_all(int, double, char, long), int>::value << std::endl;
 	std::cout << typeid(AppendList<type_all(int, double, char, long), int>::Result).name() << std::endl;
 	std::cout << typeid(EraseType<type_all(int, double, char, long), float>::Result).name() << std::endl;
